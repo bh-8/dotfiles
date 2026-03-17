@@ -1,12 +1,12 @@
 # dotfiles
+## prerequisites
+- Arch Linux installation: https://ftp.halifax.rwth-aachen.de/archlinux/iso/latest/
+  - keyboard layout: `loadkeys de-latin1`
+  - install script: `archinstall`
+    - kernels: linux-lts, linux
+    - audio: pipewire
 ## dependencies
-- Arch ISO: https://ftp.halifax.rwth-aachen.de/archlinux/iso/latest/
 - installation
-  - `loadkeys de-latin1`
-  - `archinstall`
-    - linux-lts kernel
-    - pipewire
-  - `sudo pacman -S curl git vim`
   - nvidia: https://wiki.hypr.land/Nvidia/
     - `echo "options nvidia_drm modeset=1" | sudo tee /etc/modprobe.d/nvidia.conf`
     - `sudo vim /etc/mkinitcpio.conf`: MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)

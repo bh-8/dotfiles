@@ -1,0 +1,100 @@
+# run as: source dotfiles
+
+SEPARATOR="--------------------------------------------------"
+
+print_banner() {
+    echo ""
+    echo $SEPARATOR
+    echo "dotfiles handler: https://github.com/bh-8/dotfiles"
+    echo $SEPARATOR
+    echo ""
+}
+
+print_help() {
+    echo "syntax: source dotfiles <command>"
+    echo "  available commands:"
+    echo "    install      - install all dependencies and load dotfiles"
+    echo "    save         - save current state to repository"
+    echo "    load         - apply dotfiles from repository"
+}
+
+routine_install() {
+    # check distro
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        if [ "$ID" != "arch" ]; then
+            echo "error: $ID os unsupported!"
+            return 1
+        fi
+    else
+        echo "error: os detection failed!"
+        return 1
+    fi
+
+    # check priviledges
+    if [[ "$EUID" != 0 ]]; then
+        echo $SEPARATOR
+        echo "administrator priviledges required:"
+        sudo -k
+        if ! sudo true; then
+            echo $SEPARATOR
+            echo "error: installation requires administrator priviledges!"
+            echo $SEPARATOR
+            return 1
+        fi
+    fi
+
+    # base installation
+    echo "--------------------   BASE   --------------------"
+    sudo pacman -S --noconfirm curl git vim
+    
+    # NVIDIA
+    echo "--------------------  NVIDIA  --------------------"
+    
+}
+
+routine_save() {
+    echo "TODO"
+}
+
+routine_load() {
+    echo "TODO"
+}
+
+if [[ $# -eq 1 ]]; then
+    if [ "$1" == "install" ]; then
+        print_banner
+        echo "===================  INSTALL  ===================="
+        echo ""
+        routine_install
+    elif [ "$1" == "save" ]; then
+        print_banner
+        echo "====================   SAVE   ===================="
+        echo ""
+        routine_save
+    elif [ "$1" == "load" ]; then
+        print_banner
+        echo "====================   LOAD   ===================="
+        echo ""
+        routine_load
+    elif [ "$1" == "help" ]; then
+        print_banner
+        echo "====================   HELP   ===================="
+        echo ""
+        print_help
+    else
+        echo "for help run: source dotfiles help"
+    fi
+else
+    echo "for help run: source dotfiles help"
+fi
+
+
+
+
+
+
+
+
+
+
