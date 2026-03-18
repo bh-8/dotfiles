@@ -1,0 +1,3 @@
+# todo: generate diff -u mkinitcpio.conf.orig mkinitcpio.conf.new > mkinitcpio.patch
+MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+

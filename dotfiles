@@ -18,19 +18,27 @@ print_help() {
     echo "    load         - apply dotfiles from repository"
 }
 
-routine_install() {
-    # check distro
-    if [ -f /etc/os-release ]; then
-        . /etc/os-release
-        if [ "$ID" != "arch" ]; then
-            echo "error: $ID os unsupported!"
-            return 1
-        fi
-    else
-        echo "error: os detection failed!"
+# check distro
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    if [ "$ID" != "arch" ]; then
+        echo "error: $ID os not supported!"
         return 1
     fi
+else
+    echo "error: os detection failed!"
+    return 1
+fi
 
+routine_save() {
+    echo "TODO"
+}
+
+routine_load() {
+    echo "TODO"
+}
+
+routine_install() {
     # check priviledges
     if [[ "$EUID" != 0 ]]; then
         echo $SEPARATOR
@@ -46,19 +54,36 @@ routine_install() {
 
     # base installation
     echo "--------------------   BASE   --------------------"
-    sudo pacman -S --noconfirm curl git vim
-    
-    # NVIDIA
+    sudo pacman -Syu
+    # --noconfirm \
+    sudo pacman -S \
+        base-devel \
+        curl \
+        git \
+        hyprland \
+        pipewire \
+        vim \
+        wireplumber \
+        xdg-desktop-portal-hyprland \
+        zsh
+    sudo chsh -s /usr/bin/zsh
+    git clone https://aur.archlinux.org/yay.git && cd yay/ && makepkg -si && cd ../
+
+    # NVIDIA (https://wiki.hypr.land/Nvidia/)
     echo "--------------------  NVIDIA  --------------------"
+    sudo pacman -S --noconfirm linux-headers linux-lts-headers
+    sudo pacman -S --noconfirm nvidia-open-dkms nvidia-utils egl-wayland
+    echo "options nvidia_drm modeset=1" | sudo tee /etc/modprobe.d/nvidia.conf
+    # sudo patch /etc/mkinitcpio.conf < ./nvidia/mkinitcpio.patch
+    # TODO: diff -u mkinitcpio.conf.orig mkinitcpio.conf.new > mkinitcpio.patch
+
+    # REBOOT
+
+    # OhMyZsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     
-}
-
-routine_save() {
-    echo "TODO"
-}
-
-routine_load() {
-    echo "TODO"
+    # apply dotfiles
+    routine_load
 }
 
 if [[ $# -eq 1 ]]; then
@@ -88,13 +113,3 @@ if [[ $# -eq 1 ]]; then
 else
     echo "for help run: source dotfiles help"
 fi
-
-
-
-
-
-
-
-
-
-
