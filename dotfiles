@@ -60,11 +60,15 @@ routine_install() {
         base-devel \
         curl \
         git \
+        htop \
         hyprland \
+        kitty \
         pipewire \
+        quickshell \
         vim \
         wireplumber \
         xdg-desktop-portal-hyprland \
+        yazi \
         zsh
     sudo chsh -s /usr/bin/zsh
     git clone https://aur.archlinux.org/yay.git && cd yay/ && makepkg -si && cd ../
@@ -77,13 +81,16 @@ routine_install() {
     # sudo patch /etc/mkinitcpio.conf < ./nvidia/mkinitcpio.patch
     # TODO: diff -u mkinitcpio.conf.orig mkinitcpio.conf.new > mkinitcpio.patch
 
-    # REBOOT
-
     # OhMyZsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     
+    # WallRizz
+    sudo curl -sL $(curl -s https://api.github.com/repos/5hubham5ingh/WallRizz/releases/latest | grep -Po '"browser_download_url": "\K[^"]+' | grep WallRizz) | tar -xz && sudo mv WallRizz /usr/bin/
+
     # apply dotfiles
     routine_load
+
+    # REBOOT
 }
 
 if [[ $# -eq 1 ]]; then
