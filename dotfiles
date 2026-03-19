@@ -35,7 +35,8 @@ routine_save() {
 }
 
 routine_load() {
-    echo "TODO"
+    cp -r ./hypr ~/.config/.
+    cp -r ./kitty ~/.config/.
 }
 
 routine_install() {
@@ -100,22 +101,22 @@ routine_install() {
 }
 
 if [[ $# -eq 1 ]]; then
-    if [ "$1" == "install" ]; then
+    if [ "$1" = "install" ]; then
         print_banner
         echo "===================  INSTALL  ===================="
         echo ""
         routine_install
-    elif [ "$1" == "save" ]; then
+    elif [ "$1" = "save" ]; then
         print_banner
         echo "====================   SAVE   ===================="
         echo ""
         routine_save
-    elif [ "$1" == "load" ]; then
+    elif [ "$1" = "load" ]; then
         print_banner
         echo "====================   LOAD   ===================="
         echo ""
         routine_load
-    elif [ "$1" == "help" ]; then
+    elif [ "$1" = "help" ]; then
         print_banner
         echo "====================   HELP   ===================="
         echo ""
