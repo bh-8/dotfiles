@@ -35,6 +35,7 @@ routine_save() {
 }
 
 routine_load() {
+    cp -r ./htop ~/.config/.
     cp -r ./hypr ~/.config/.
     cp -r ./kitty ~/.config/.
 }
