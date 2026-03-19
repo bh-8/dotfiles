@@ -1,0 +1,1 @@
+kitty --hold sh -c "echo '' && fastfetch --config ~/.config/fastfetch/config.json && echo ''"
