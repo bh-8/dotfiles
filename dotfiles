@@ -67,11 +67,14 @@ routine_install() {
         github-cli \
         gparted \
         htop \
+        hypridle \
         hyprland \
+        hyprlauncher \
         keepassxc \
         kitty \
         pipewire \
         quickshell \
+        ttf-nerd-fonts-symbols \
         veracrypt \
         vim \
         wireplumber \
