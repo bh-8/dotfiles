@@ -54,17 +54,23 @@ routine_install() {
 
     # base installation
     echo "--------------------   BASE   --------------------"
-    sudo pacman -Syu
     # --noconfirm \
     sudo pacman -S \
         base-devel \
+        code \
         curl \
+        discord \
+        firefox \
         git \
+        github-cli \
+        gparted \
         htop \
         hyprland \
+        keepassxc \
         kitty \
         pipewire \
         quickshell \
+        veracrypt \
         vim \
         wireplumber \
         xdg-desktop-portal-hyprland \
