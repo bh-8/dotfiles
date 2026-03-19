@@ -13,9 +13,9 @@ print_banner() {
 print_help() {
     echo "syntax: source dotfiles <command>"
     echo "  available commands:"
-    echo "    install      - install all dependencies and load dotfiles"
+    echo "    install      - install all dependencies and apply dotfiles"
     echo "    save         - save current state to repository"
-    echo "    load         - apply dotfiles from repository"
+    echo "    apply        - apply dotfiles from repository"
 }
 
 # check distro
@@ -34,8 +34,14 @@ routine_save() {
     echo "TODO"
 }
 
-routine_load() {
+routine_apply() {
     cp ./dotroot/.* ~/.
+
+    #rm -drf ~/.config/fastfetch
+    #rm -drf ~/.config/htop
+    #rm -drf ~/.config/hypr
+    #rm -drf ~/.config/kitty
+
     cp -r ./fastfetch ~/.config/.
     cp -r ./htop ~/.config/.
     cp -r ./hypr ~/.config/.
@@ -101,7 +107,7 @@ routine_install() {
     sudo curl -sL $(curl -s https://api.github.com/repos/5hubham5ingh/WallRizz/releases/latest | grep -Po '"browser_download_url": "\K[^"]+' | grep WallRizz) | tar -xz && sudo mv WallRizz /usr/bin/
 
     # apply dotfiles
-    routine_load
+    routine_apply
 
     # REBOOT
 }
@@ -117,11 +123,12 @@ if [[ $# -eq 1 ]]; then
         echo "====================   SAVE   ===================="
         echo ""
         routine_save
-    elif [ "$1" = "load" ]; then
+    elif [ "$1" = "apply" ]; then
         print_banner
-        echo "====================   LOAD   ===================="
+        echo "===================   APPLY   ===================="
         echo ""
-        routine_load
+        routine_apply
+        echo "Done!"
     elif [ "$1" = "help" ]; then
         print_banner
         echo "====================   HELP   ===================="
