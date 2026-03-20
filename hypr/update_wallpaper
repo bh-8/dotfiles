@@ -1,0 +1,15 @@
+if [[ $# -eq 0 ]]; then
+	echo "error: no wallpaper provided!"
+	return 1
+fi
+
+WALLPAPER=$1
+
+if [ ! -f "$WALLPAPER" ]; then
+	echo "error: could not find file '$WALLPAPER'!"
+	return 1
+fi
+
+# set wallpaper
+awww img "$WALLPAPER" --transition-type grow --transition-pos top-left --transition-fps 175 --transition-bezier .42,0,.64,1
+

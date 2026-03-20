@@ -1,6 +1,7 @@
 # run as: source dotfiles
 
 SEPARATOR="--------------------------------------------------"
+INIT_DIR=$(pwd)
 
 print_banner() {
     echo ""
@@ -72,8 +73,12 @@ routine_install() {
         code \
         curl \
         discord \
+        exfat-utils \
+        fd \
+        ffmpeg \
         firefox \
         flameshot \
+        fzf \
         git \
         github-cli \
         gparted \
@@ -82,10 +87,16 @@ routine_install() {
         hypridle \
         hyprland \
         hyprlauncher \
+        imagemagick \
         keepassxc \
         kitty \
+        mpv \
         pipewire \
         quickshell \
+        resvg \
+        ripgrep \
+        7zip \
+        spotify-launcher \
         ttf-nerd-fonts-symbols \
         veracrypt \
         vim \
@@ -93,9 +104,13 @@ routine_install() {
         wireplumber \
         xdg-desktop-portal-hyprland \
         yazi \
+        zoxide \
         zsh
     sudo chsh -s /usr/bin/zsh
-    git clone https://aur.archlinux.org/yay.git && cd yay/ && makepkg -si && cd ../
+
+    git clone https://aur.archlinux.org/yay.git ~/yay-git && cd ~/yay-git/ && makepkg -si && cd $INIT_DIR && rm -drf ~/yay-git
+    yay -S awww-bin
+    yay -S minecraft-launcher
 
     # NVIDIA (https://wiki.hypr.land/Nvidia/)
     echo "--------------------  NVIDIA  --------------------"
@@ -107,7 +122,8 @@ routine_install() {
 
     # OhMyZsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    
+    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
+
     # WallRizz
     sudo curl -sL $(curl -s https://api.github.com/repos/5hubham5ingh/WallRizz/releases/latest | grep -Po '"browser_download_url": "\K[^"]+' | grep WallRizz) | tar -xz && sudo mv WallRizz /usr/bin/
 
