@@ -32,7 +32,7 @@ echo "PALETTE=${COLORMAP}"
 awww img "$WALLPAPER" --transition-type grow --transition-pos top-left --transition-fps 175 --transition-bezier .42,0,.64,1
 
 # apply color to HyprLand
-hyprctl keyword general:col.active_border "rgba(${COLORMAP[8]:1}ee) rgba(${COLORMAP[16]:1}ee) 30deg"
+hyprctl keyword general:col.active_border "rgba(${COLORMAP[13]:1}ee) rgba(${COLORMAP[4]:1}ee) 30deg"
 
 # apply color palette to kitty
 {
