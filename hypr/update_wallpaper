@@ -10,6 +10,35 @@ if [ ! -f "$WALLPAPER" ]; then
 	return 1
 fi
 
+# extract color palette
+COLORMAP=()
+while read -r color; do
+	COLORMAP+=("$color")
+done < <(magick "$WALLPAPER" -format %c -depth 8 +level 10%,90% -colors 16 histogram:info: | grep -oE "#[0-9A-Fa-f]{6}")
+
+# sort color map
+SORTEDMAP=()
+while read -r color; do
+    SORTEDMAP+=("$color")
+done < <(
+    for i in "${COLORMAP[@]}"; do 
+        magick -size 1x1 xc:"$i" -format "%[pixel:intensity] $i\n" info:
+    done | sort -n | awk '{print $2}'
+)
+COLORMAP=(${SORTEDMAP[@]})
+echo "PALETTE=${COLORMAP}"
+
 # set wallpaper
 awww img "$WALLPAPER" --transition-type grow --transition-pos top-left --transition-fps 175 --transition-bezier .42,0,.64,1
 
+# apply color to HyprLand
+hyprctl keyword general:col.active_border "rgba(${COLORMAP[13]:1}ee) rgba(${COLORMAP[3]:1}ee) 45deg"
+
+# apply color palette to kitty
+{
+	for i in {1..8}; do
+		j=$((i+8))
+		[ -n "${COLORMAP[$i]}" ] && printf "color%-2d %s\n" "$((i-1))" "${COLORMAP[$i]}"
+		[ -n "${COLORMAP[$j]}" ] && printf "color%-2d %s\n\n" "$((j-1))" "${COLORMAP[$j]}"
+	done
+} > ~/.config/kitty/colormap.conf
