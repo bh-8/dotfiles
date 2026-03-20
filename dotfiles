@@ -38,11 +38,13 @@ routine_apply() {
     cp ./dotroot/.* ~/.
 
     #rm -drf ~/.config/fastfetch
+    #rm -drf ~/.config/flameshot
     #rm -drf ~/.config/htop
     #rm -drf ~/.config/hypr
     #rm -drf ~/.config/kitty
 
     cp -r ./fastfetch ~/.config/.
+    cp -r ./flameshot ~/.config/.
     cp -r ./htop ~/.config/.
     cp -r ./hypr ~/.config/.
     cp -r ./kitty ~/.config/.
@@ -71,9 +73,11 @@ routine_install() {
         curl \
         discord \
         firefox \
+        flameshot \
         git \
         github-cli \
         gparted \
+        grim \
         htop \
         hypridle \
         hyprland \
@@ -85,6 +89,7 @@ routine_install() {
         ttf-nerd-fonts-symbols \
         veracrypt \
         vim \
+        wayland-utils \
         wireplumber \
         xdg-desktop-portal-hyprland \
         yazi \
