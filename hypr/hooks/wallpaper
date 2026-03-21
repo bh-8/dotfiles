@@ -31,8 +31,10 @@ echo "PALETTE=${COLORMAP}"
 # set wallpaper
 awww img "$WALLPAPER" --transition-type grow --transition-pos top-left --transition-fps 175 --transition-bezier .42,0,.64,1
 
-# apply color to HyprLand
-hyprctl keyword general:col.active_border "rgba(${COLORMAP[13]:1}ee) rgba(${COLORMAP[4]:1}ee) 30deg"
+# apply color to HyprLand and kitty
+hyprctl keyword general:col.active_border "rgba(${COLORMAP[15]:1}ee) rgba(${COLORMAP[13]:1}ee) 30deg"
+
+sleep 1
 
 # apply color palette to kitty
 {
@@ -42,3 +44,5 @@ hyprctl keyword general:col.active_border "rgba(${COLORMAP[13]:1}ee) rgba(${COLO
 		[ -n "${COLORMAP[$j]}" ] && printf "color%-2d %s\n\n" "$((j-1))" "${COLORMAP[$j]}"
 	done
 } > ~/.config/kitty/colormap.conf
+
+kitty @ set-colors --all ~/.config/kitty/colormap.conf

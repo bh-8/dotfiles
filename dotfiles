@@ -38,12 +38,6 @@ routine_save() {
 routine_apply() {
     cp ./dotroot/.* ~/.
 
-    #rm -drf ~/.config/fastfetch
-    #rm -drf ~/.config/flameshot
-    #rm -drf ~/.config/htop
-    #rm -drf ~/.config/hypr
-    #rm -drf ~/.config/kitty
-
     cp -r ./fastfetch ~/.config/.
     cp -r ./flameshot ~/.config/.
     cp -r ./htop ~/.config/.
